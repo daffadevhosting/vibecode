@@ -1,11 +1,88 @@
 // ============ VIBECODE IDE - MAIN ENTRY POINT ============
 // This file initializes the IDE and sets up all event listeners
 
+// Check if user is logged in and has tokens
+async function checkAuthAndTokens() {
+  const backendUrl = VibeCodeState.backendWorkerUrl;
+  
+  // Check auth status
+  try {
+    const authResponse = await fetch(backendUrl + '/api/auth/me', {
+      credentials: 'include',
+      mode: 'cors'
+    });
+
+    if (!authResponse.ok) {
+      // Not logged in - show login overlay
+      showLoginRequired();
+      return false;
+    }
+
+    const authData = await authResponse.json();
+    if (!authData.user) {
+      showLoginRequired();
+      return false;
+    }
+
+    // User logged in - check token balance
+    const balance = await checkTokenBalance();
+    if (balance <= 0) {
+      // No tokens - show top-up prompt
+      showTokenRequired();
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Auth/Token check error:', error);
+    showLoginRequired();
+    return false;
+  }
+}
+
+// Show login required overlay
+function showLoginRequired() {
+  const overlay = document.getElementById('loginRequiredOverlay');
+  if (overlay) {
+    overlay.style.display = 'flex';
+    
+    const loginBtn = document.getElementById('loginNowBtn');
+    const dashboardBtn = document.getElementById('goToDashboardBtn');
+    
+    if (loginBtn) {
+      loginBtn.onclick = function() {
+        window.location.href = VibeCodeState.backendWorkerUrl + '/auth/github';
+      };
+    }
+    
+    if (dashboardBtn) {
+      dashboardBtn.onclick = function() {
+        window.location.href = '/dashboard';
+      };
+    }
+  }
+}
+
+// Show token required warning
+function showTokenRequired() {
+  toast('Token tidak mencukupi! Silakan top-up terlebih dahulu.', 'error');
+  if (typeof showTopUpModal === 'function') {
+    setTimeout(showTopUpModal, 1000);
+  }
+}
+
 // Initialize the IDE when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
   // Initialize DOM cache and state
   initDOM();
   initState();
+  
+  // Check if user is logged in and has tokens
+  const hasAuthAndTokens = await checkAuthAndTokens();
+  if (!hasAuthAndTokens) {
+    // Don't initialize IDE if not logged in or no tokens
+    return;
+  }
   
   // Save project snapshot on changes
   function saveProjectSnapshot() {

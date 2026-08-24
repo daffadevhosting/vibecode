@@ -266,6 +266,62 @@
   font-size: var(--font-size-base);
 }
 
+/* ============ TOKEN SECTION ============ */
+.token-section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.token-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.token-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.token-info i {
+  font-size: var(--font-size-xl);
+  color: var(--accent-2);
+}
+
+.token-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.token-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+.token-amount {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text);
+}
+
+.token-warning {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--danger);
+}
+
+.token-warning i {
+  color: var(--danger);
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 768px) {
   .dashboard-shell {

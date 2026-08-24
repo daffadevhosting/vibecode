@@ -14,7 +14,10 @@ async function checkTokenBalance() {
   
   try {
     const response = await fetch(`${billingWorkerUrl}/balance?userId=${VibeCodeState.userId}`, {
-      headers: { 'Authorization': 'Bearer demo-token' }
+      method: 'GET',
+      headers: { 'Authorization': 'Bearer demo-token' },
+      credentials: 'include',
+      mode: 'cors'
     });
     
     const data = await response.json();
@@ -43,6 +46,8 @@ async function consumeTokens(promptTokens, completionTokens, model) {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer demo-token'
       },
+      credentials: 'include',
+      mode: 'cors',
       body: JSON.stringify({
         userId: VibeCodeState.userId,
         requestId: requestId,

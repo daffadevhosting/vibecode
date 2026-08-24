@@ -1,7 +1,7 @@
 ---
 layout: null
 title: VibeCode IDE
-permalink: /
+permalink: /workspace
 ---
 <!DOCTYPE html>
 <html lang="id">
@@ -162,6 +162,68 @@ permalink: /
 </div>
 
 {% include ide-assets.html %}
+
+<!-- Login Required Overlay -->
+<div class="login-required" id="loginRequiredOverlay" style="display: none;">
+  <div class="login-required-content">
+    <i class="fas fa-lock"></i>
+    <h2>Login Required</h2>
+    <p>Silakan login dengan GitHub terlebih dahulu untuk menggunakan VibeCode IDE.</p>
+    <div class="login-required-actions">
+      <button class="btn btn-primary" id="loginNowBtn">
+        <i class="fab fa-github"></i> Login with GitHub
+      </button>
+      <button class="btn btn-secondary" id="goToDashboardBtn">
+        <i class="fas fa-arrow-right"></i> Go to Dashboard
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Login required overlay */
+  .login-required {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .login-required-content {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .login-required-content i {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .login-required-content h2 {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .login-required-content p {
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .login-required-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+  }
+</style>
 
 <script>
 // Initialize the IDE when DOM is ready

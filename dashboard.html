@@ -1,15 +1,15 @@
 ---
 layout: default
 title: Project Dashboard
-permalink: /dashboard
+permalink: /dashboard.html
 ---
 <main class="dashboard-shell">
   <header class="dashboard-header">
-    <a class="brand" href="{{ '/' | relative_url }}">
+    <a class="brand" href="{{ '/index.html' | relative_url }}">
       <i class="fas fa-code"></i> VibeCode
     </a>
     <div class="header-actions">
-      <a class="btn btn-secondary" href="{{ '/' | relative_url }}">
+      <a class="btn btn-secondary" href="{{ '/index.html' | relative_url }}" id="openIdeBtn">
         <i class="fas fa-terminal"></i> Open IDE
       </a>
       <button class="btn btn-secondary" id="logout" hidden>
@@ -27,6 +27,28 @@ permalink: /dashboard
     <button class="btn btn-primary" id="newProject">
       <i class="fas fa-plus"></i> New project
     </button>
+  </section>
+
+  <section class="token-section">
+    <div class="section-heading">
+      <h2>Token Balance</h2>
+      <button class="btn btn-secondary" id="topUpBtn">
+        <i class="fas fa-coins"></i> Top-Up Token
+      </button>
+    </div>
+    <div class="token-card" id="tokenCard">
+      <div class="token-info">
+        <i class="fas fa-coins"></i>
+        <div class="token-details">
+          <span class="token-label">Current Balance</span>
+          <span class="token-amount" id="tokenBalance">Loading...</span>
+        </div>
+      </div>
+      <div class="token-warning" id="tokenWarning" style="display: none;">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Token tidak mencukupi! Silakan top-up untuk menggunakan AI.</span>
+      </div>
+    </div>
   </section>
 
   <section class="project-section">
@@ -53,5 +75,102 @@ permalink: /dashboard
 </main>
 
 <script src="{{ '/assets/js/app.js' | relative_url }}"></script>
-<script>window.VIBECODE_IDE_URL = '{{ "/" | relative_url }}';</script>
+<script>
+window.VIBECODE_IDE_URL = '{{ "/index.html" | relative_url }}';
+window.DASHBOARD_URL = '{{ "/dashboard.html" | relative_url }}';
+</script>
 <script src="{{ '/assets/js/dashboard.js' | relative_url }}"></script>
+<script>
+// Dashboard-specific functionality
+window.addEventListener('DOMContentLoaded', function() {
+  const backendUrl = localStorage.getItem('vibecode_worker') || 'https://vibecode.harisudahmalam.workers.dev';
+  const tokenBalanceEl = document.getElementById('tokenBalance');
+  const tokenWarningEl = document.getElementById('tokenWarning');
+  const openIdeBtn = document.getElementById('openIdeBtn');
+  const topUpBtn = document.getElementById('topUpBtn');
+
+  // Check token balance
+  async function checkTokenBalance() {
+    try {
+      const response = await fetch(`${backendUrl}/balance?userId=${localStorage.getItem('vibecode_userId') || 'demo'}`, {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer demo-token' },
+        credentials: 'include',
+        mode: 'cors'
+      });
+
+      const data = await response.json();
+      if (data.ok && tokenBalanceEl) {
+        tokenBalanceEl.textContent = data.balance.toLocaleString() + ' tokens';
+        
+        // Show warning if balance is low
+        if (data.balance <= 0 && tokenWarningEl) {
+          tokenWarningEl.style.display = 'block';
+          if (openIdeBtn) {
+            openIdeBtn.onclick = function(e) {
+              e.preventDefault();
+              alert('Silakan top-up token terlebih dahulu untuk menggunakan AI!');
+              if (topUpBtn) topUpBtn.click();
+            };
+          }
+        } else {
+          if (tokenWarningEl) tokenWarningEl.style.display = 'none';
+        }
+        return data.balance;
+      }
+    } catch (error) {
+      console.error('Error checking balance:', error);
+      if (tokenBalanceEl) tokenBalanceEl.textContent = 'Error loading balance';
+      return 0;
+    }
+  }
+
+  // Check auth status and update UI
+  async function checkAuthStatus() {
+    try {
+      const response = await fetch(backendUrl + '/api/auth/me', {
+        credentials: 'include',
+        mode: 'cors'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.user && data.user.login) {
+          // User logged in - check token balance
+          await checkTokenBalance();
+          return true;
+        }
+      }
+      
+      // Not logged in - redirect to landing or show login
+      if (!window.location.pathname.includes('dashboard')) {
+        // Already on dashboard, just show login
+        const loginBtn = document.getElementById('login');
+        if (loginBtn) {
+          loginBtn.onclick = function() {
+            window.location.href = backendUrl + '/auth/github';
+          };
+        }
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+    }
+  }
+
+  // Initialize
+  checkAuthStatus();
+  checkTokenBalance();
+
+  // Add top-up button handler
+  if (topUpBtn) {
+    topUpBtn.onclick = function() {
+      // Show top-up modal or redirect to top-up page
+      if (typeof showTopUpModal === 'function') {
+        showTopUpModal();
+      } else {
+        alert('Top-up functionality coming soon!');
+      }
+    };
+  }
+});
+</script>

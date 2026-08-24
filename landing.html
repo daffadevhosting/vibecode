@@ -1,0 +1,317 @@
+---
+layout: null
+title: VibeCode - Code with AI
+permalink: /
+---
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VibeCode - Code with AI</title>
+  <link rel="stylesheet" href="{{ '/assets/css/variables.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/base.css' | relative_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .landing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      font-size: var(--font-size-lg);
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .logo i {
+      font-size: var(--font-size-xl);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+
+    .landing-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-3xl);
+      text-align: center;
+    }
+
+    .hero-section {
+      max-width: 800px;
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .hero-section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-md);
+      background: linear-gradient(135deg, var(--accent), #6c5ce7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-section p {
+      font-size: var(--font-size-lg);
+      color: var(--text-dim);
+      margin-bottom: var(--spacing-xl);
+      line-height: 1.6;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-xl);
+      max-width: 1000px;
+      margin-bottom: var(--spacing-3xl);
+    }
+
+    .feature-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      text-align: left;
+    }
+
+    .feature-card i {
+      font-size: var(--font-size-xl);
+      color: var(--accent);
+      margin-bottom: var(--spacing-md);
+    }
+
+    .feature-card h3 {
+      font-size: var(--font-size-md);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .feature-card p {
+      font-size: var(--font-size-sm);
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    .cta-section {
+      margin-top: var(--spacing-xl);
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, var(--accent), #6c5ce7);
+      color: white;
+      border: none;
+      padding: var(--spacing-md) var(--spacing-2xl);
+      font-size: var(--font-size-md);
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+    }
+
+    .cta-button i {
+      font-size: var(--font-size-md);
+    }
+
+    .landing-footer {
+      border-top: 1px solid var(--border);
+      padding: var(--spacing-lg);
+      text-align: center;
+      color: var(--text-dim);
+      font-size: var(--font-size-sm);
+    }
+
+    .auth-status {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      font-size: var(--font-size-sm);
+      color: var(--text-dim);
+    }
+
+    .auth-status i {
+      color: var(--accent-2);
+    }
+
+    .auth-status.logged-in i {
+      color: var(--accent-2);
+    }
+
+    .auth-status.logged-in {
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .hero-section h1 {
+        font-size: 2rem;
+      }
+
+      .landing-main {
+        padding: var(--spacing-xl);
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="landing-header">
+    <div class="logo">
+      <i class="fas fa-code"></i>
+      <span>VibeCode</span>
+    </div>
+    <div class="header-actions">
+      <div class="auth-status" id="authStatus">
+        <i class="fas fa-user"></i>
+        <span>Not logged in</span>
+      </div>
+      <button class="btn btn-secondary" id="loginBtn">
+        <i class="fab fa-github"></i>
+        Login with GitHub
+      </button>
+    </div>
+  </header>
+
+  <main class="landing-main">
+    <section class="hero-section">
+      <h1>Code with AI Power</h1>
+      <p>
+        VibeCode adalah IDE modern yang terintegrasi dengan Cloudflare Workers AI.
+        Mulai coding dengan bantuan AI, kelola proyek GitHub, dan deploy dengan mudah.
+      </p>
+    </section>
+
+    <section class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-robot"></i>
+        <h3>AI Assistant</h3>
+        <p>Dapatkan bantuan coding dari AI canggih. Tanya apa saja, minta edit file, atau generate code baru.</p>
+      </div>
+      
+      <div class="feature-card">
+        <i class="fab fa-github"></i>
+        <h3>GitHub Integration</h3>
+        <p>Clone, edit, commit, dan push repository GitHub langsung dari IDE tanpa perlu install Git.</p>
+      </div>
+      
+      <div class="feature-card">
+        <i class="fas fa-cloud"></i>
+        <h3>Cloudflare Workers</h3>
+        <p>Backend powered by Cloudflare Workers AI. Cepat, aman, dan scalable tanpa server management.</p>
+      </div>
+      
+      <div class="feature-card">
+        <i class="fas fa-mobile-alt"></i>
+        <h3>Responsive Design</h3>
+        <p>IDE yang bekerja di desktop, tablet, dan mobile. Coding dimana saja, kapan saja.</p>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <button class="cta-button" id="startBtn">
+        <i class="fas fa-rocket"></i>
+        Get Started
+      </button>
+    </section>
+  </main>
+
+  <footer class="landing-footer">
+    <p>Built with ❤️ and Cloudflare Workers AI | Version 1.1.0</p>
+  </footer>
+
+  <script>
+    // Cek status auth
+    async function checkAuthStatus() {
+      const backendUrl = localStorage.getItem('vibecode_worker') || 'https://vibecode.harisudahmalam.workers.dev';
+      const authStatus = document.getElementById('authStatus');
+      const loginBtn = document.getElementById('loginBtn');
+      const startBtn = document.getElementById('startBtn');
+
+      try {
+        const response = await fetch(backendUrl + '/api/auth/me', {
+          credentials: 'include',
+          mode: 'cors'
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.user && data.user.login) {
+            // Sudah login
+            if (authStatus) {
+              authStatus.innerHTML = '<i class="fas fa-check-circle"></i><span>Logged in as ' + data.user.login + '</span>';
+              authStatus.classList.add('logged-in');
+            }
+            if (loginBtn) {
+              loginBtn.innerHTML = '<i class="fas fa-user"></i> Go to Dashboard';
+              loginBtn.onclick = function() {
+                window.location.href = '/dashboard.html';
+              };
+            }
+            if (startBtn) {
+              startBtn.innerHTML = '<i class="fas fa-rocket"></i> Open IDE';
+              startBtn.onclick = function() {
+                window.location.href = '/index.html';
+              };
+            }
+            return true;
+          }
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+      }
+
+      // Belum login
+      if (loginBtn) {
+        loginBtn.onclick = function() {
+          const backendUrl = localStorage.getItem('vibecode_worker') || 'https://vibecode.harisudahmalam.workers.dev';
+          window.location.href = backendUrl + '/auth/github';
+        };
+      }
+
+      if (startBtn) {
+        startBtn.onclick = function() {
+          const backendUrl = localStorage.getItem('vibecode_worker') || 'https://vibecode.harisudahmalam.workers.dev';
+          window.location.href = backendUrl + '/auth/github';
+        };
+      }
+
+      return false;
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', checkAuthStatus);
+  </script>
+</body>
+</html>

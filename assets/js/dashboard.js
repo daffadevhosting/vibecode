@@ -1,6 +1,6 @@
 (function () {
   var worker = localStorage.getItem('vibecode_worker') || 'https://vibecode.harisudahmalam.workers.dev';
-  var ideUrl = window.VIBECODE_IDE_URL || 'index.html';
+  var ideUrl = window.VIBECODE_IDE_URL || 'workspace';
   var projects = VibeCodeProjectStore.readProjects();
 
   function escapeHtml(value) {
