@@ -356,6 +356,18 @@ function showSettings() {
     });
   }
   
+  if (githubLogoutBtn) {
+    githubLogoutBtn.addEventListener('click', logoutGithub);
+  }
+  
+  if (workspaceRepo) {
+    workspaceRepo.addEventListener('change', loadWorkspaceBranches);
+  }
+  
+  if (workspaceBranch) {
+    workspaceBranch.addEventListener('change', loadWorkspaceFiles);
+  }
+  
   if (settingsCancelBtn) {
     settingsCancelBtn.addEventListener('click', hideModal);
   }
@@ -430,9 +442,10 @@ async function loadGithubSettings() {
         workspaceRepo.value = VibeCodeState.repo.owner + '/' + VibeCodeState.repo.name;
         await loadWorkspaceBranches();
         const branchSelect = document.getElementById('workspaceBranch');
-        if (branchSelect) {
-          branchSelect.value = VibeCodeState.repo.branch || branchSelect.value;
-          await loadWorkspaceFiles();
+        if (branchSelect && VibeCodeState.repo.branch) {
+          branchSelect.value = VibeCodeState.repo.branch;
+          // Trigger change event manually to load files
+          branchSelect.dispatchEvent(new Event('change'));
         }
       }
     }
@@ -481,9 +494,20 @@ async function loadWorkspaceBranches() {
     branchSelect.innerHTML = branches.map(function(branch) { 
       return '<option value="' + escapeHtml(branch.name) + '">' + escapeHtml(branch.name) + '</option>'; 
     }).join('');
-    await loadWorkspaceFiles();
+    
+    // Set default branch if available in state
+    if (VibeCodeState.repo?.branch) {
+      const defaultBranch = VibeCodeState.repo.branch;
+      const option = branchSelect.querySelector(`option[value="${defaultBranch}"]`);
+      if (option) {
+        branchSelect.value = defaultBranch;
+      }
+    }
+    
+    // Don't auto-load files here - let the change event handle it
   } catch (error) {
     console.error('Error loading branches:', error);
+    toast('Error loading branches: ' + error.message, 'error');
   }
 }
 
