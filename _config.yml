@@ -1,0 +1,6 @@
+title: VibeCode
+baseurl: ""
+url: ""
+exclude:
+  - Gemfile
+  - Gemfile.lock

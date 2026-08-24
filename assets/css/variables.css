@@ -1,0 +1,145 @@
+/* ============ CSS CUSTOM PROPERTIES ============ */
+:root {
+  /* Colors - Dark Theme */
+  --bg: #1a1a1a;
+  --bg-2: #222222;
+  --bg-3: #2a2a2a;
+  
+  /* Borders */
+  --border: #333333;
+  
+  /* Text */
+  --text: #e0e0e0;
+  --text-dim: #888888;
+  
+  /* Accent Colors */
+  --accent: #4a9eff;
+  --accent-2: #2ecc71;
+  --danger: #e74c3c;
+  --warn: #f39c12;
+  
+  /* Layout Dimensions */
+  --sidebar-w: 240px;
+  --chat-w: 320px;
+  --activity-w: 48px;
+  --titlebar-h: 36px;
+  --statusbar-h: 24px;
+  
+  /* Typography */
+  --font-primary: -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Consolas', monospace;
+  --font-size-sm: 11px;
+  --font-size-base: 12px;
+  --font-size-md: 13px;
+  --font-size-lg: 14px;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 6px;
+  --spacing-md: 8px;
+  --spacing-lg: 12px;
+  --spacing-xl: 16px;
+  --spacing-2xl: 20px;
+  --spacing-3xl: 24px;
+  
+  /* Border Radius */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-xl: 6px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+  --transition-slow: 0.25s ease;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ============ BASE RESET ============ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--text);
+  background-color: var(--bg);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

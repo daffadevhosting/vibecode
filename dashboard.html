@@ -1,0 +1,57 @@
+---
+layout: default
+title: Project Dashboard
+permalink: /dashboard
+---
+<main class="dashboard-shell">
+  <header class="dashboard-header">
+    <a class="brand" href="{{ '/' | relative_url }}">
+      <i class="fas fa-code"></i> VibeCode
+    </a>
+    <div class="header-actions">
+      <a class="btn btn-secondary" href="{{ '/' | relative_url }}">
+        <i class="fas fa-terminal"></i> Open IDE
+      </a>
+      <button class="btn btn-secondary" id="logout" hidden>
+        <i class="fas fa-sign-out-alt"></i> Log out
+      </button>
+    </div>
+  </header>
+
+  <section class="dashboard-intro">
+    <div>
+      <p class="eyebrow">Workspace dashboard</p>
+      <h1>Project yang kamu kerjakan</h1>
+      <p class="intro-copy">Lanjutkan pekerjaan dari perubahan terakhir yang tersimpan di browser ini.</p>
+    </div>
+    <button class="btn btn-primary" id="newProject">
+      <i class="fas fa-plus"></i> New project
+    </button>
+  </section>
+
+  <section class="project-section">
+    <div class="section-heading">
+      <h2>Saved projects</h2>
+      <span id="projectCount" class="count"></span>
+    </div>
+    <div id="projects" class="project-grid">
+      <div class="empty">Memuat project...</div>
+    </div>
+  </section>
+
+  <section class="github-section">
+    <div class="section-heading">
+      <h2>GitHub workspace</h2>
+      <button class="btn btn-secondary" id="login">
+        <i class="fab fa-github"></i> Login with GitHub
+      </button>
+    </div>
+    <div id="profile" class="github-profile">
+      <div class="empty">Memuat status GitHub...</div>
+    </div>
+  </section>
+</main>
+
+<script src="{{ '/assets/js/app.js' | relative_url }}"></script>
+<script>window.VIBECODE_IDE_URL = '{{ "/" | relative_url }}';</script>
+<script src="{{ '/assets/js/dashboard.js' | relative_url }}"></script>

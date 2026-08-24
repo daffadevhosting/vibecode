@@ -1,0 +1,298 @@
+/* ============ DASHBOARD LAYOUT ============ */
+.dashboard-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: var(--spacing-xl);
+}
+
+.brand {
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  font-size: var(--font-size-lg);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.brand i {
+  font-size: var(--font-size-lg);
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+/* ============ DASHBOARD SECTIONS ============ */
+.dashboard-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-2xl);
+  gap: var(--spacing-xl);
+}
+
+.dashboard-intro > div {
+  flex: 1;
+}
+
+.eyebrow {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-xs);
+}
+
+.dashboard-intro h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-sm);
+}
+
+.intro-copy {
+  color: var(--text-dim);
+  font-size: var(--font-size-md);
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.section-heading h2 {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text);
+}
+
+.count {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  background: var(--bg-2);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+}
+
+/* ============ PROJECT GRID ============ */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.project-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+
+.project-card h3 {
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+}
+
+.project-card .meta {
+  font-size: var(--font-size-xs);
+  color: var(--text-dim);
+}
+
+.project-card p {
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.project-card-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.project-card-actions .btn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-xs);
+}
+
+/* ============ GITHUB SECTION ============ */
+.github-section {
+  margin-top: var(--spacing-2xl);
+}
+
+.github-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.github-profile .avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+}
+
+.github-profile-info {
+  flex: 1;
+}
+
+.github-profile-info h3 {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--spacing-xs);
+}
+
+.github-profile-info p {
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.github-profile-stats {
+  display: flex;
+  gap: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+.github-profile-stats span {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* ============ EMPTY STATES ============ */
+.empty {
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  padding: var(--spacing-2xl);
+}
+
+/* ============ LOADING STATES ============ */
+.loading {
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+}
+
+.loading::after {
+  content: "...";
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: "."; }
+  40% { content: ".."; }
+  60%, 100% { content: "..."; }
+}
+
+/* ============ BUTTON STYLES ============ */
+/* Using btn classes from base.css */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #3a8eee;
+}
+
+.button:active {
+  background: #2a7ede;
+}
+
+.button.secondary {
+  background: var(--bg-3);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.button.secondary:hover {
+  background: var(--border);
+}
+
+.button.small {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+/* Icon styling for buttons */
+.button i,
+.btn i {
+  font-size: var(--font-size-base);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .dashboard-shell {
+    padding: var(--spacing-md);
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .dashboard-intro {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .github-profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .github-profile-stats {
+    justify-content: center;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
