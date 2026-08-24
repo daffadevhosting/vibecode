@@ -92,7 +92,7 @@ window.addEventListener('DOMContentLoaded', function() {
   // Check token balance
   async function checkTokenBalance() {
     try {
-      const response = await fetch(`${backendUrl}/balance?userId=${localStorage.getItem('vibecode_userId') || 'demo'}`, {
+      const response = await fetch(`${backendUrl}/api/billing/balance?userId=${localStorage.getItem('vibecode_userId') || 'demo'}`, {
         method: 'GET',
         headers: { 'Authorization': 'Bearer demo-token' },
         credentials: 'include',
